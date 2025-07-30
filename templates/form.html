@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Application Form</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+    color: #fff;
+    font-weight: 400;
+}
+
+input, select {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border: 2px solid #00ffe5;
+    box-shadow: 0 0 10px rgba(0,255,229,0.5);
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #1d976c, #93f9b9);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    margin-top: 10px;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #93f9b9, #1d976c);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+button[type="reset"] {
+    background: linear-gradient(135deg, #f00000, #ff9696);
+}
+
+button[type="reset"]:hover {
+    background: linear-gradient(135deg, #ff9696, #f00000);
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transition: transform 0.5s ease, opacity 0.6s ease;
+    opacity: 0;
+}
+
+button:active::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+::placeholder {
+    color: #eee;
+}
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-weight: 400;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.option-item:hover {
+    color: #00ffe5;
+}
+
+.option-item input[type="radio"],
+.option-item input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #00ffe5;
+    cursor: pointer;
+}
+
+
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Application Form</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label>First Name:</label>
+            <input type="text" name="first_name" required>
+            <label>Last Name:</label>
+            <input type="text" name="last_name" required>
+            <label>Date of Birth:</label>
+            <input type="date" name="dob" required>
+
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label>Age:</label>
+            <input type="number" name="age" required>
+
+            <label>Email Address:</label>
+            <input type="email" name="email" required>
+
+           <label>Positions Available:</label>
+<div class="option-group">
+    <label class="option-item"><input type="radio" name="position" value="Junior Developer" required> Junior Developer</label>
+    <label class="option-item"><input type="radio" name="position" value="Midlevel Developer"> Midlevel Developer</label>
+    <label class="option-item"><input type="radio" name="position" value="Senior Developer"> Senior Developer</label>
+</div>
+
+<label>Programming Languages:</label>
+<div class="option-group">
+    <label class="option-item"><input type="checkbox" name="languages" value="Java"> Java</label>
+    <label class="option-item"><input type="checkbox" name="languages" value="JavaScript"> JavaScript</label>
+    <label class="option-item"><input type="checkbox" name="languages" value="Python"> Python</label>
+</div>
+
+
+            <label>Password:</label>
+            <input type="password" name="password" required>
+
+            <label>Confirm Password:</label>
+            <input type="password" name="confirm_password" required>
+
+            <label>Mobile Number:</label>
+            <input type="tel" name="mobile" pattern="[0-9]{10,15}" required>
+
+            <label>GitHub Profile Link:</label>
+            <input type="url" name="github" placeholder="https://github.com/username" required>
+
+            <label>LinkedIn Profile Link:</label>
+            <input type="url" name="linkedin" placeholder="https://linkedin.com/in/username" required>
+
+            <label>Upload Resume (PDF only):</label>
+            <input type="file" name="resume" accept="application/pdf" required>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+</body>
+</html>

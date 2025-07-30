@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ff6b6b, #f94d6a, #4facfe, #00f2fe);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    width: 95%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 2em;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+a {
+    color: #00ffe5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+th, td {
+    padding: 14px;
+    border: none;
+    text-align: left;
+    color: #fff;
+}
+
+th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-weight: 500;
+}
+
+tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+tr:hover {
+    background: rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.actions button, .actions a {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #f85032, #e73827);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.actions button:hover, .actions a:hover {
+    background: linear-gradient(135deg, #e73827, #f85032);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.add-link {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.add-link:hover {
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard - Applicants</h1>
+        <a href="{{ url_for('admin_logout') }}">Logout</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Mobile</th>
+                    <th>GitHub</th>
+                    <th>LinkedIn</th>
+                    <th>Resume</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for applicant in applicants %}
+                <tr>
+                    <td>{{ applicant.id }}</td>
+                    <td>{{ applicant.first_name }}</td>
+                    <td>{{ applicant.last_name }}</td>
+                    <td>{{ applicant.email }}</td>
+                    <td>{{ applicant.position }}</td>
+                    <td><a href="{{ applicant.mobile }}" target="_blank">GitHub</a></td>
+                    <td><a href="{{ applicant.github }}" target="_blank">GitHub</a></td>
+                    <td><a href="{{ applicant.linkedin }}" target="_blank">LinkedIn</a></td>
+                    <td>{% if applicant.resume %}<a href="{{ url_for('uploaded_file', filename=applicant.resume) }}" target="_blank">View PDF</a>{% else %}N/A{% endif %}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('admin_edit', id=applicant.id) }}">Edit</a>
+                        <form method="POST" action="{{ url_for('admin_delete', id=applicant.id) }}">
+                            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class="add-link" href="{{ url_for('admin_create') }}">Add New Applicant</a>
+    </div>
+</body>
+</html>
